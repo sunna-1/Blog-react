@@ -1,5 +1,3 @@
-import { articleBodies } from './articleBodies'
-
 export const site = {
   name: "Sunna's Diary",
   nameCn: 'Sunna 的日记本',
@@ -14,24 +12,24 @@ export const site = {
 
 export const quotes = [
   {
-    text: 'Simplicity is the ultimate sophistication.',
-    author: 'Leonardo da Vinci',
-    cn: '至简，是至深的精致。',
+    text: 'You sort of start thinking anything’s possible if you’ve got enough nerve.',
+    author: 'J.K. Rowling',
+    cn: '“如果你有足够的胆量，你就会开始觉得任何事情都是可能的。” ————J.K. 罗琳',
   },
   {
-    text: 'We write to taste life twice, in the moment and in retrospect.',
-    author: 'Anaïs Nin',
-    cn: '写作，让我们把生活品尝两遍。',
+    text: ' We think too much, and feel too little.',
+    author: 'Charlie Chaplin',
+    cn: '“我们想的太多，却疏于感受。” ————查理·卓别林',
   },
   {
-    text: 'Not all those who wander are lost.',
-    author: 'J.R.R. Tolkien',
-    cn: '漫游的人，未必迷失方向。',
+    text: 'If you shed tears when you miss the sun, you also miss the stars.',
+    author: 'Rabindranath Tagore',
+    cn: '“如果你在错过太阳时哭泣，那么你也将错过群星。” ————拉宾德拉纳特·泰戈尔',
   },
   {
     text: 'The art of being wise is knowing what to overlook.',
     author: 'William James',
-    cn: '智慧的一部分，是知道什么可以略过。',
+    cn: '“智慧的艺术，就在于懂得什么可以略过。” ————威廉·詹姆斯',
   },
 ]
 
@@ -71,12 +69,19 @@ export const articles = [
   },
 ]
 
-export function getArticleById(id) {
+export async function getArticleById(id) {
   const meta = articles.find((a) => a.id === id)
   if (!meta) return null
-  const body = articleBodies[id]
-  if (!body) return null
-  return { ...meta, body }
+
+  try {
+    const response = await fetch(`/articles/${id}.md`)
+    if (!response.ok) return null
+    const body = await response.text()
+    return { ...meta, body }
+  } catch (error) {
+    console.error(`Failed to load article ${id}:`, error)
+    return null
+  }
 }
 
 export const dailyEntries = [

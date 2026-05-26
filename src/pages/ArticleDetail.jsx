@@ -1,4 +1,5 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { getArticleById, articles, site } from '../data/content'
 import MarkdownContent from '../components/MarkdownContent'
 import { ScrollReveal } from '../components/ScrollReveal'
@@ -8,9 +9,35 @@ import { BrandLogo } from '../components/DecorImage'
 
 export default function ArticleDetail() {
   const { id } = useParams()
-  const article = getArticleById(id)
+  const [article, setArticle] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
 
-  if (!article) {
+  useEffect(() => {
+    async function loadArticle() {
+      setLoading(true)
+      const data = await getArticleById(id)
+      if (data) {
+        setArticle(data)
+      } else {
+        setNotFound(true)
+      }
+      setLoading(false)
+    }
+    loadArticle()
+  }, [id])
+
+  if (loading) {
+    return (
+      <div className="page-inner article-detail">
+        <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+          <p>加载中...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (notFound || !article) {
     return <Navigate to="/articles" replace />
   }
 
