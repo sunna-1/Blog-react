@@ -1,13 +1,15 @@
-# Sunna Blog
+# Sunna 的日记本
 
-一个使用 React、Vite 和 IconPark 构建的现代个人博客前端。页面包含加载页、欢迎首屏、文章模块、网址推荐、标签筛选、时间线、订阅入口和关于/扩展模块，适合后续部署到 Cloudflare Pages。
+手绘本风格的个人博客：记录日常、想法与文章。使用 React、Vite、Framer Motion 与 SVG 线稿动效构建，适合部署到 Cloudflare Pages。
 
 ## 技术栈
 
 - React 19
 - Vite 7
-- IconPark React 图标组件库
-- CSS 响应式布局
+- React Router
+- Framer Motion
+- marked（Markdown 渲染，构建进静态包）
+- SVG 手绘线稿 + CSS
 
 ## 本地开发
 
@@ -30,11 +32,30 @@ npm run build
 - Build output directory: `dist`
 - Root directory: `/`
 
+## 页面路由
+
+| 路径 | 说明 |
+|------|------|
+| `/` | 首页：名言、手绘视觉、联系信息 |
+| `/articles` | 文章列表 |
+| `/daily` | 日常分享 |
+| `/tools` | 实用工具入口 |
+| `/tools/markdown` | Markdown 写作预览（纯前端） |
+| `/tools/complexity` | 算法复杂度启发式评估 |
+| `/articles/:id` | 文章详情 |
+
+SPA 回退已配置于 [public/_redirects](public/_redirects)，Cloudflare Pages 可直接使用。
+
+## 品牌 Logo
+
+浏览器图标与文章详情页尾使用 [public/img/logo.svg](public/img/logo.svg)。
+
 ## 内容编辑
 
-主要内容集中在 [src/App.jsx](src/App.jsx) 顶部的数据数组中：
+数据集中在 [src/data/content.js](src/data/content.js)：
 
-- `posts`: 博客文章
-- `recommendedLinks`: 网址推荐
-- `categories`: 分类筛选
-- `timeline`: 后续路线或动态记录
+- `articles`: 文章
+- `dailyEntries`: 日常分享
+- `quotes`: 首页名言
+- `tools`: 工具占位
+- `site`: 站点信息与联系方式
