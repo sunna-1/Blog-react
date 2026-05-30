@@ -13,7 +13,7 @@ export default function Tools() {
           <h1>实用工具</h1>
           <SketchWiggleLine />
           <p className="page-lead">
-            全部在浏览器本地运行，构建为静态资源后可部署到 Cloudflare Pages 免费层，无需后端。
+            一些实用的在线小工具。会持续更新和增加，欢迎随时来看看有没有新玩具可以用。
           </p>
         </ScrollReveal>
         <SketchTools className="page-header-art" />
@@ -31,9 +31,20 @@ export default function Tools() {
               <span className="tool-status is-live">{tool.status}</span>
               <h2>{tool.title}</h2>
               <p>{tool.desc}</p>
-              <Link className="tool-primary-btn link-btn" to={tool.path}>
-                打开工具 →
-              </Link>
+              {tool.external ? (
+                <a
+                  className="tool-primary-btn link-btn"
+                  href={tool.path}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  打开工具 →
+                </a>
+              ) : (
+                <Link className="tool-primary-btn link-btn" to={tool.path}>
+                  打开工具 →
+                </Link>
+              )}
             </article>
           </StaggerItem>
         ))}

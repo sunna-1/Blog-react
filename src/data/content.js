@@ -110,6 +110,14 @@ export const dailyEntries = [
 
 export const tools = [
   {
+    id: 'cloudflare-ai',
+    title: 'Cloudflare AI 对话',
+    desc: '基于 Cloudflare Workers AI 的在线对话助手。点击跳转到独立的对话页面。',
+    status: '可用',
+    path: 'https://chat.sunnacloud.cn',
+    external: true,
+  },
+  {
     id: 'markdown',
     title: 'Markdown 写作预览',
     desc: '左侧书写、右侧实时预览，适合起草文章与日常片段。纯浏览器运行。',

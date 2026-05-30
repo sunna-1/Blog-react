@@ -5,7 +5,7 @@ import { site } from '../data/content'
 const navItems = [
   { to: '/', label: '首页', end: true },
   { to: '/articles', label: '文章' },
-  { to: '/daily', label: '日常分享' },
+  { to: '/daily', label: '日常动态' },
   { to: '/tools', label: '实用工具' },
 ]
 
